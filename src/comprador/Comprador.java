@@ -8,16 +8,16 @@ public class Comprador {
 	private double valoresPagar;
 	private int comprasRealizadas;
 
+	public Comprador() {
+
+	}
+	
 	public Comprador(String cpf, String nome, double saldo) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.saldo = saldo;
 	}
-
-	public Comprador() {
-
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}

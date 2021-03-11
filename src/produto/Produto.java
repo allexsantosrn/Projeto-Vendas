@@ -5,7 +5,11 @@ public class Produto {
 	private int codigo;
 	private String nome;
 	private double precoUnitario;
-
+	
+	public Produto() {
+		
+	}
+	
 	public Produto(int i, String string, double d) {
 		this.codigo = i;
 		this.nome = string;

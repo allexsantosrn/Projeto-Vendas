@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 import comprador.Comprador;
+import produto.Produto;
 import vendedor.Vendedor;
 
 public class Menu {
@@ -13,6 +14,7 @@ public class Menu {
 
 	private Collection<Comprador> compradores = new HashSet<>();
 	private Collection<Vendedor> vendedores = new HashSet<>();
+	private Collection<Produto> produtos = new HashSet<>();
 
 	private void adicionarComprador(Comprador comprador) {
 
@@ -47,7 +49,24 @@ public class Menu {
 		}
 
 	}
+	
+	private void adicionarProduto(Produto produto) {
 
+		if (produtos.contains(produto)) {			
+			System.out.println("");
+			System.out.println("O produto informado já se encontra cadastrado na base de dados.");
+			System.out.println("");
+		}
+
+		else {			
+			produtos.add(produto);
+			System.out.println("");
+			System.out.println("Produtor cadastrado com sucesso.");
+			System.out.println("");
+		}
+
+	}
+	
 	public void cadastrarComprador() {
 
 		Comprador comprador = new Comprador();
@@ -158,6 +177,27 @@ public class Menu {
 		}
 		
 		System.out.println("");
+	}
+	
+	public void cadastrarProduto() {
+
+		Produto produto = new Produto();
+
+		System.out.print("Informe o código do produto: ");
+		int codigo = in.nextInt();
+		in.nextLine();
+
+		System.out.print("Informe o nome do produto: ");
+		String nome = in.nextLine();
+
+		System.out.print("Informe o preço unitário do produto: ");
+		double saldo = in.nextDouble();
+
+		produto.setCodigo(codigo);
+		produto.setNome(nome);
+		produto.setPrecoUnitario(saldo);
+
+		adicionarProduto(produto);
 	}
 
 }
