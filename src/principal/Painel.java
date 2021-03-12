@@ -65,10 +65,13 @@ public class Painel {
 				menu.listarVendedores();
 				break;
 				
-			case 0:
+			case 7:
+				menu.cadastrarProduto();
 				break;
 				
-
+			case 0:
+				break;
+			
 			default:
 				System.out.println("Opção inválida. Escolha uma opção entre 0 e 10!!!");
 				break;

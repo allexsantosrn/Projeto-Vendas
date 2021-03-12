@@ -42,8 +42,8 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [codigo=" + codigo + ", nome=" + nome + ", precoUnitario=" + precoUnitario + "]";
-	}
+		return "Código: " + this.codigo + "\nNome: " + this.nome + "\nPreço Unitário: " + this.precoUnitario;
+	}	
 
 	@Override
 	public int hashCode() {

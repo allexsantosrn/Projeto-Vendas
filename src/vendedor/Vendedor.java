@@ -1,7 +1,9 @@
 package vendedor;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 import produto.Produto;
 
 public class Vendedor {
@@ -11,7 +13,7 @@ public class Vendedor {
 	double saldo;
 	double valoresReceber;
 	int vendasRealizadas;
-	private Collection<Produto> catalogo = new HashSet<>();
+	Map<Object, Object> catalogo = new HashMap<Object, Object>();
 
 	public String getNome() {
 		return nome;
@@ -52,12 +54,33 @@ public class Vendedor {
 	public void setVendasRealizadas(int vendasRealizadas) {
 		this.vendasRealizadas = vendasRealizadas;
 	}
+	
+	
+	public void adicionarItemCatalogo(Vendedor vendedor, Produto produto) {
+		catalogo.put(vendedor, produto);
+	}
+	
+	/*
+	public void adicionarItemCatalogo(Produto produto) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		System.out.print("Informe o catálogo do produto (Inserir o cnpj do vendedor): ");
+		String cnpj = in.next();
+		
+		
+		
+		
+	}*/
+
+	public void retornarCatalogoVendedor(Vendedor vendedor) {
+		System.out.print(catalogo.values());
+	}
 
 	@Override
 	public String toString() {
 		return "CNPJ: " + this.cnpj + "\nNome: " + this.nome + "\nSaldo: " + this.saldo + "\nValores a Receber: "
 				+ this.valoresReceber + "\nVendas Realizadas: " + this.vendasRealizadas;
-
 	}
 
 	@Override
