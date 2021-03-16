@@ -1,317 +1,97 @@
 package principal;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Scanner;
-
-import comprador.Comprador;
-import produto.Produto;
-import vendedor.Vendedor;
 
 public class Menu {
 
-	Scanner in = new Scanner(System.in);
+	public static void main(String[] args) {
 
-	private Collection<Comprador> compradores = new HashSet<>();
-	private Collection<Vendedor> vendedores = new HashSet<>();
-	private Collection<Produto> produtos = new HashSet<>();
+		// Tela de apresentação do sistema
 
-	private void adicionarComprador(Comprador comprador) {
+		Scanner in = new Scanner(System.in);
 
-		if (compradores.contains(comprador)) {
+		Functions functions = new Functions();
+
+		int option;
+
+		do {
+
+			System.out.println("$$$$$ Sistema de Cadastro de Vendas $$$$$");
 			System.out.println("");
-			System.out.println("O comprador informado já se encontra cadastrado na base de dados.");
+
+			System.out.println("- Escolha uma das opções abaixo: ");
 			System.out.println("");
-		}
 
-		else {
-			compradores.add(comprador);
-			System.out.println("");
-			System.out.println("Comprador cadastrado com sucesso.");
-			System.out.println("");
-		}
+			System.out.println("1 - Cadastrar Comprador");
+			System.out.println("2 - Consultar Comprador");
+			System.out.println("3 - Listar Compradores");
+			System.out.println("4 - Cadastrar Vendedor");
+			System.out.println("5 - Consultar Vendedor");
+			System.out.println("6 - Listar Vendedores");
+			System.out.println("7 - Cadastrar Produto");
+			System.out.println("8 - Consultar Produto");
+			System.out.println("9 - Listar Produtos");
+			System.out.println("10 - Cadastrar Venda");			
+			System.out.println("0 - Sair");
 
-	}
+			System.out.print("Selecionar Opção: ");
+			option = in.nextInt();
 
-	private void adicionarVendedor(Vendedor vendedor) {
+			switch (option) {
 
-		if (vendedores.contains(vendedor)) {
-			System.out.println("");
-			System.out.println("O vendedor informado já se encontra cadastrado na base de dados.");
-			System.out.println("");
-		}
+			case 1:
+				functions.cadastrarComprador();
+				break;
 
-		else {
-			vendedores.add(vendedor);
-			System.out.println("");
-			System.out.println("Vendedor cadastrado com sucesso.");
-			System.out.println("");
-		}
+			case 2:
+				functions.consultarComprador();
+				break;
 
-	}
+			case 3:
+				functions.listarCompradores();
+				break;
 
-	private void adicionarProduto(Produto produto) {
+			case 4:
+				functions.cadastrarVendedor();
+				break;
 
-		if (produtos.contains(produto)) {
-			System.out.println("");
-			System.out.println("O produto informado já se encontra cadastrado na base de dados.");
-			System.out.println("");
-		}
+			case 5:
+				functions.consultarVendedor();
+				break;
 
-		else {
-			produtos.add(produto);
-			System.out.println("");
-			System.out.println("Produto cadastrado com sucesso.");
-			System.out.println("");
-		}
+			case 6:
+				functions.listarVendedores();
+				break;
 
-	}
+			case 7: 
+				functions.cadastrarProduto(); 
+				break; 
+			
+			case 8: 
+				functions.consultarProduto(); 
+				break; 
+			
+			case 9: 
+				functions.listarProdutos(); 
+				break; 
+				
+			case 10: 
+				functions.cadastrarVenda(); 
+				break; 
 
-	private boolean hasComprador(String cpf) {
+			case 0:
+				break;
 
-		boolean existe = false;
-
-		for (Comprador comprador : compradores) {
-
-			if (comprador.getCpf().equals(cpf)) {
-				System.out.println("");
-				System.out.println(comprador);
-				System.out.println("");
-				existe = true;
+			default:
+				System.out.println("Opção inválida. Escolha uma opção entre 0 e 10!!!");
 				break;
 			}
-		}
-
-		return existe;
-
-	}
-
-	private boolean hasVendedor(String cnpj) {
-
-		boolean existe = false;
-
-		for (Vendedor vendedor : vendedores) {
-
-			if (vendedor.getCnpj().equals(cnpj)) {
-				System.out.println("");
-				System.out.println(vendedor);
-				vendedor.retornarCatalogoVendedor(vendedor);				
-				System.out.println("");
-				existe = true;
-				break;
-			}
-		}
-
-		return existe;
-
-	}
-	
-	private boolean hasProduto(int codigo) {
-
-		boolean existe = false;
-
-		for (Produto produto : produtos) {
-
-			if (produto.getCodigo() == codigo) {
-				System.out.println("");
-				System.out.println(produto);
-				System.out.println("");
-				existe = true;
-				break;
-			}
-		}
-
-		return existe;
-
-	}
-
-	public void cadastrarComprador() {
-
-		Comprador comprador = new Comprador();
-
-		System.out.print("Informe o CPF do comprador: ");
-		String cpf = in.next();
-		in.nextLine();
-
-		System.out.print("Informe o nome do comprador: ");
-		String nome = in.nextLine();
-
-		System.out.print("Informe o saldo inicial do comprador: ");
-		double saldo = in.nextDouble();
-
-		comprador.setCpf(cpf);
-		comprador.setNome(nome);
-		comprador.setSaldo(saldo);
-
-		adicionarComprador(comprador);
-	}
-
-	public void consultarComprador() {
-
-		System.out.print("Informe o cpf do comprador: ");
-		String cpf = in.next();
-
-		if (!hasComprador(cpf)) {
-			System.out.println("");
-			System.out.println("Não foram localizados compradores com o CPF informado.");
-			System.out.println("");
-		}
-
-	}
-
-	public void listarCompradores() {
-
-		if (compradores.isEmpty()) {
-			System.out.println("");
-			System.out.println("Não há registro de compradores na base de dados.");
-			System.out.println("");
-		}
-
-		else {
-
-			int i = 1;
-			System.out.println("");
-
-			for (Comprador comprador : compradores) {
-				System.out.println(
-						"Comprador" + "[" + i + "] -" + " Nome: " + comprador.getNome() + " - CPF: " + comprador.getCpf());
-				i++;
-			}
-
-			System.out.println("");
 
 		}
 
-	}
-
-	public void cadastrarVendedor() {
-
-		Vendedor vendedor = new Vendedor();
-
-		System.out.print("Informe o CNPJ do vendedor: ");
-		String cnpj = in.next();
-		in.nextLine();
-
-		System.out.print("Informe o nome do vendedor: ");
-		String nome = in.nextLine();
-
-		System.out.print("Informe o saldo inicial do vendedor: ");
-		double saldo = in.nextDouble();
-
-		vendedor.setCnpj(cnpj);
-		vendedor.setNome(nome);
-		vendedor.setSaldo(saldo);
-
-		adicionarVendedor(vendedor);
-	}
-
-	public void consultarVendedor() {
-
-		System.out.print("Informe o cnpj do vendedor: ");
-		String cnpj = in.next();
-		
-		if (!hasVendedor(cnpj)) {
-			System.out.println("");
-			System.out.println("Não foram localizados compradores com o CPF informado.");
-			System.out.println("");
-		}
-
-	}
-
-	public void listarVendedores() {
-
-		int i = 1;
-		System.out.println("");
-
-		for (Vendedor vendedor : vendedores) {
-			System.out.println(
-					"Vendedor" + "[" + i + "] -" + " Nome: " + vendedor.getNome() + " - CNPJ: " + vendedor.getCnpj());
-			i++;
-		}
-
-		System.out.println("");
-	}
-	
-	public void cadastrarProduto() {
-
-		Produto produto = new Produto();
-
-		System.out.print("Informe o código do produto: ");
-		int codigo = in.nextInt();
-		in.nextLine();
-
-		System.out.print("Informe o nome do produto: ");
-		String nome = in.nextLine();
-
-		System.out.print("Informe o preço unitário do produto: ");
-		double saldo = in.nextDouble();
-
-		System.out.print("Informe o catálogo do produto (Inserir o cnpj do vendedor): ");
-		String cnpj = in.next();
-
-		if (vendedores.isEmpty()) {
-			System.out.println("");
-			System.out.println("Não foram localizados vendedores com o CNPJ informado.");
-			System.out.println("");
-		}
-
-		else {
-						
-			for (Vendedor vendedor : vendedores) {
-
-				if (vendedor.getCnpj().equals(cnpj)) {
-					produto.setCodigo(codigo);
-					produto.setNome(nome);
-					produto.setPrecoUnitario(saldo);
-
-					vendedor.adicionarItemCatalogo(vendedor, produto);
-					adicionarProduto(produto);
-				}
-
-				else {
-					System.out.println("");
-					System.out.println("Não foram localizados vendedores com o CNPJ informado.");
-					System.out.println("");
-				}
-
-			}
-		}
-
-	}
-	/*
-	public void cadastrarProduto() {
-
-		Produto produto = new Produto();
-		Vendedor vendedor = new Vendedor();
-		
-		System.out.print("Informe o código do produto: ");
-		int codigo = in.nextInt();
-		in.nextLine();
-
-		System.out.print("Informe o nome do produto: ");
-		String nome = in.nextLine();
-
-		System.out.print("Informe o preço unitário do produto: ");
-		double preco = in.nextDouble();
-		
-		produto.setCodigo(codigo);
-		produto.setNome(nome);
-		produto.setPrecoUnitario(preco);
-		
-		vendedor.adicionarItemCatalogo(produto);		
-		
-	}*/
-		
-	public void consultarProduto() {
-
-		System.out.print("Informe o código do produto: ");
-		int codigo = in.nextInt();
-
-		if (!hasProduto(codigo)) {
-			System.out.println("");
-			System.out.println("Não foram localizados produtos com o código informado.");
-			System.out.println("");
-		}
+		while (option != 0);
+		System.out.println("Saindo...volte sempre!!!");
+		in.close();
 
 	}
 

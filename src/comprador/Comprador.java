@@ -1,30 +1,17 @@
 package comprador;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 public class Comprador {
 
-	private String nome;
 	private String cpf;
+	private String nome;
 	private double saldo;
-	private double valoresPagar;
+	private double valoresaPagar;
 	private int comprasRealizadas;
 
-	public Comprador() {
-
-	}
-	
-	public Comprador(String cpf, String nome, double saldo) {
-		this.cpf = cpf;
-		this.nome = nome;
-		this.saldo = saldo;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	private Collection<Comprador> compradores = new HashSet<>();
 
 	public String getCpf() {
 		return cpf;
@@ -32,6 +19,14 @@ public class Comprador {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public double getSaldo() {
@@ -42,12 +37,12 @@ public class Comprador {
 		this.saldo = saldo;
 	}
 
-	public double getValoresPagar() {
-		return valoresPagar;
+	public double getValoresaPagar() {
+		return valoresaPagar;
 	}
 
-	public void setValoresPagar(double valoresPagar) {
-		this.valoresPagar = valoresPagar;
+	public void setValoresaPagar(double valoresaPagar) {
+		this.valoresaPagar = valoresaPagar;
 	}
 
 	public int getComprasRealizadas() {
@@ -57,12 +52,16 @@ public class Comprador {
 	public void setComprasRealizadas(int comprasRealizadas) {
 		this.comprasRealizadas = comprasRealizadas;
 	}
-	
+
+	public void adicionarComprador(Comprador comprador) {
+		compradores.add(comprador);
+	}
+
 	@Override
 	public String toString() {
-		return "CPF: "+this.cpf + "\nNome: " + this.nome + "\nSaldo: " + this.saldo 
-				+ "\nValores a Pagar: " + this.valoresPagar + "\nCompras Realizadas: " + this.comprasRealizadas;
-				
+		return "CPF: " + this.cpf + "\nNome: " + this.nome + "\nSaldo: " + this.saldo + "\nValores a Pagar: "
+				+ this.valoresaPagar + "\nCompras Realizadas: " + this.comprasRealizadas;
+
 	}
 
 	@Override

@@ -5,16 +5,6 @@ public class Produto {
 	private int codigo;
 	private String nome;
 	private double precoUnitario;
-	
-	public Produto() {
-		
-	}
-	
-	public Produto(int i, String string, double d) {
-		this.codigo = i;
-		this.nome = string;
-		this.precoUnitario = d;
-	}
 
 	public int getCodigo() {
 		return codigo;
@@ -43,7 +33,7 @@ public class Produto {
 	@Override
 	public String toString() {
 		return "Código: " + this.codigo + "\nNome: " + this.nome + "\nPreço Unitário: " + this.precoUnitario;
-	}	
+	}
 
 	@Override
 	public int hashCode() {

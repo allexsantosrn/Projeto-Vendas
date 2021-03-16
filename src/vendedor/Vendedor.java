@@ -1,27 +1,20 @@
 package vendedor;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.Collection;
+import java.util.HashSet;
 
 import produto.Produto;
 
 public class Vendedor {
 
-	String nome;
 	String cnpj;
+	String nome;
 	double saldo;
 	double valoresReceber;
 	int vendasRealizadas;
-	Map<Object, Object> catalogo = new HashMap<Object, Object>();
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	private Collection<Vendedor> vendedores = new HashSet<>();
+	private Collection<Produto> catalogo = new HashSet<>();
 
 	public String getCnpj() {
 		return cnpj;
@@ -29,6 +22,14 @@ public class Vendedor {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public double getSaldo() {
@@ -54,29 +55,25 @@ public class Vendedor {
 	public void setVendasRealizadas(int vendasRealizadas) {
 		this.vendasRealizadas = vendasRealizadas;
 	}
-	
-	
-	public void adicionarItemCatalogo(Vendedor vendedor, Produto produto) {
-		catalogo.put(vendedor, produto);
+
+	public void adicionarVendedor(Vendedor vendedor) {
+		vendedores.add(vendedor);
 	}
 	
-	/*
 	public void adicionarItemCatalogo(Produto produto) {
-		
-		Scanner in = new Scanner(System.in);
-		
-		System.out.print("Informe o catálogo do produto (Inserir o cnpj do vendedor): ");
-		String cnpj = in.next();
-		
-		
-		
-		
-	}*/
-
-	public void retornarCatalogoVendedor(Vendedor vendedor) {
-		System.out.print(catalogo.values());
-	}
-
+		catalogo.add(produto);		
+	}	
+	
+	public void getProdutosCatalogo() {
+		int i=1;
+		System.out.println("Catálogo de Itens: ");
+		for (Produto produto : catalogo) {
+			
+			System.out.println("Produto" + "[" + i + "]:" + " " + produto.getCodigo()+" - "+produto.getNome()+" - "+produto.getPrecoUnitario());
+			i++;
+		}
+	}	
+	
 	@Override
 	public String toString() {
 		return "CNPJ: " + this.cnpj + "\nNome: " + this.nome + "\nSaldo: " + this.saldo + "\nValores a Receber: "
