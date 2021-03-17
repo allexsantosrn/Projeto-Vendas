@@ -10,8 +10,8 @@ public class Vendedor {
 	String cnpj;
 	String nome;
 	double saldo;
-	double valoresReceber;
-	int vendasRealizadas;
+	double valoresReceber = 0;
+	int vendasRealizadas = 0;
 
 	private Collection<Vendedor> vendedores = new HashSet<>();
 	private Collection<Produto> catalogo = new HashSet<>();
@@ -72,7 +72,34 @@ public class Vendedor {
 			System.out.println("Produto" + "[" + i + "]:" + " " + produto.getCodigo()+" - "+produto.getNome()+" - "+produto.getPrecoUnitario());
 			i++;
 		}
-	}	
+	}
+	
+	public void incrementaSaldoVendedor(double valor) {
+		this.saldo = this.saldo + valor;		
+	}
+	
+	public void incrementaVendasRealizadas() {		
+		this.vendasRealizadas = this.vendasRealizadas + 1;
+	}
+	
+	public void incrementaValoresaReceber(double valor) {
+		this.valoresReceber = this.valoresReceber + valor;		
+	}
+	
+	public boolean hasProdutoCatalogo(int codigo) {
+		
+		boolean existe = false;
+
+		for (Produto produto : catalogo) {
+
+			if (produto.getCodigo() == codigo) {
+				existe = true;
+			}
+		}
+
+		return existe;
+	}
+	
 	
 	@Override
 	public String toString() {

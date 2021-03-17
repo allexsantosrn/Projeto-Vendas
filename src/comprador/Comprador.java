@@ -8,8 +8,8 @@ public class Comprador {
 	private String cpf;
 	private String nome;
 	private double saldo;
-	private double valoresaPagar;
-	private int comprasRealizadas;
+	private double valoresaPagar = 0;
+	private int comprasRealizadas = 0;
 
 	private Collection<Comprador> compradores = new HashSet<>();
 
@@ -55,6 +55,18 @@ public class Comprador {
 
 	public void adicionarComprador(Comprador comprador) {
 		compradores.add(comprador);
+	}
+	
+	public void debitaSaldoVendedor (double valor) {
+		this.saldo = this.saldo - valor;
+	}
+	
+	public void incrementaComprasRealizadas() {		
+		this.comprasRealizadas = this.comprasRealizadas + 1;
+	}
+	
+	public void incrementaValoresaPagar(double valor) {
+		this.valoresaPagar = this.valoresaPagar + valor;		
 	}
 
 	@Override

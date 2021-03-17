@@ -105,13 +105,13 @@ public class Functions {
 		String cnpj = input.next();
 
 		if (action3.hasProduto(codigo)) {
-			
+
 			System.out.println("");
 			System.out.println("Já existe um produto com o código informado na base de dados.");
 		}
 
 		else if (action2.listaVendedoresIsEmpty()) {
-			
+
 			System.out.println("");
 			System.out.println("Não há vendedores cadastrados na base de dados.");
 		}
@@ -128,7 +128,7 @@ public class Functions {
 		}
 
 		else {
-			
+
 			System.out.println("");
 			System.out.println("Não foram localizados vendedores com o CNPJ informado.");
 		}
@@ -146,104 +146,184 @@ public class Functions {
 
 		action3.listarProdutos();
 	}
-	
+
 	public void cadastrarVenda() {
-		
+
 		Venda venda = new Venda();
-				
+
 		int option = 0;
-		
+
 		System.out.print("Informe o CPF do comprador: ");
 		String cpf = input.next();
-		
+
 		System.out.print("Informe o CNPJ do vendedor: ");
 		String cnpj = input.next();
-		
+
 		System.out.print("Informe o código do produto: ");
 		int codigo = input.nextInt();
-		
-		if (!action.hasComprador(cpf)) { 
+
+		if (!action.hasComprador(cpf)) {
 			System.out.println("Não foram localizados compradores com o CPF informado.");
-			
 		}
-		
+
 		else if (!action2.hasVendedor(cnpj)) {
 			System.out.println("Não foram localizados vendedores com o CNPJ informado.");
-			
-		}		
-		else if (!action3.hasProduto(codigo)) {	
+		}
+
+		else if (!action3.hasProduto(codigo)) {
 			System.out.println("Não foram localizados produtos com o código informado.");
-			
-		}		
+		}
+
+		else if (!action2.hasProdutoCatalogo(action2.retornaVendedorByCNPJ(cnpj), codigo)) {
+			System.out.println(
+					"Não foram localizados produtos com o código informado no catálogo do vendedor selecionado.");
+		}
+
 		else {
-			
-			venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));				
-			System.out.printf("Produto de código: %d adicionado com sucesso: \n",codigo);
-			
+
+			venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
+			System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
+
 			System.out.print("Deseja adicionar mais um produto a compra? (1-Sim / 2-Não): ");
 			option = input.nextInt();
-			
+
 			while (option == 1) {
-								
+
 				System.out.print("Informe o código do produto: ");
 				codigo = input.nextInt();
-				
-				if (action3.hasProduto(codigo)) {
+
+				if (action2.hasProdutoCatalogo(action2.retornaVendedorByCNPJ(cnpj), codigo)) {
 					venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
-					System.out.printf("Produto de código: %d adicionado com sucesso: \n",codigo);
+					System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
 				}
-				
+
 				else {
-					System.out.println("Não foram localizados produtos com o código informado.");					
+					System.out.println(
+							"Não foram localizados produtos com o código informado no catálogo do vendedor selecionado.");
 				}
-				
+
 				System.out.print("Deseja adicionar mais um produto a compra? (1-Sim / 2-Não): ");
 				option = input.nextInt();
 			}
-			
+
 			double valorCompra = venda.getValorProdutos();
-			
-			System.out.printf("Total a pagar: %2f \n",valorCompra);
-			
+
+			System.out.printf("Total a pagar: %2f \n", valorCompra);
+
 			FormaPagamento pagamento = new FormaPagamento();
-			
+
 			System.out.println("Informe a opção de pagamento: ");
-			
-			while (option != 1 || option !=2 || option !=3 || option !=4) {
-				
+			option = 5;
+
+			while (option != 1 && option != 2 && option != 3 && option != 4) {
+
 				System.out.println("1 - Pagamento por PIX.");
 				System.out.println("2 - Pagamento por Boleto.");
 				System.out.println("3 - Pagamento por Cartão de Crédito.");
 				System.out.println("4 - Pagamento por Cartão de Débito.");
-				System.out.println("Opção desejada: ");
+				System.out.print("Opção desejada: ");
 				option = input.nextInt();
-				
-				if((option != 1 || option !=2 || option !=3 || option !=4)) {
-					
-					System.out.println("Opção inválida. Informe a opção de pagamento: ");					
+
+				if ((option != 1 && option != 2 && option != 3 && option != 4)) {
+
+					System.out.println("Opção inválida. Informe a opção de pagamento: ");
 				}
-				
-				else {		
-					
-					System.out.println("Informe a data de pagamento do boleto: ");
-					String dataPagamento = input.next();
-					
-					System.out.println("Informe a data de vencimento do boleto: ");
+
+				else {
+
+					System.out.print("Informe a data de vencimento do boleto: ");
 					String dataVencimento = input.next();
-					
+
+					System.out.print("Informe a data de pagamento do boleto: ");
+					String dataPagamento = input.next();
+
 					if (option == 1) {
-					
-					pagamento.realizarPagamentobyPIX(valorCompra);
-					
+						
+						System.out.println("Você escolheu a opção de pagamento: PIX.");
+						
+						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra)) {
+
+							pagamento.realizarPagamentobyPIX(action2.retornaVendedorByCNPJ(cnpj),
+									action.retornaCompradorByCPF(cpf), valorCompra);
+
+							pagamento.setDataVencimento(dataVencimento);
+							pagamento.setDataPagamento(dataPagamento);
+							pagamento.setValorTotal(valorCompra);
+							pagamento.setTipoPagamento("PIX");
+							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
+							venda.setComprador(action.retornaCompradorByCPF(cpf));
+							venda.setPagamento(pagamento);
+						}
+
+					}
+
+					else if (option == 2) {
+						
+						System.out.println("Você escolheu a opção de pagamento: BOLETO BANCÁRIO.");
+						
+						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra)) {
+
+							pagamento.realizarPagamentobyBoleto(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra);
+							
+							pagamento.setDataVencimento(dataVencimento);
+							pagamento.setDataPagamento(dataPagamento);
+							pagamento.setValorTotal(valorCompra);
+							pagamento.setTipoPagamento("BOLETO");
+							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
+							venda.setComprador(action.retornaCompradorByCPF(cpf));
+							venda.setPagamento(pagamento);
+						}
+
+					}
+
+					else if (option == 3) {
+						
+						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE CRÉDITO.");
+						
+						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra)) {
+
+							pagamento.realizarPagamentobyCredito(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra);
+							
+							pagamento.setDataVencimento(dataVencimento);
+							pagamento.setDataPagamento(dataPagamento);
+							pagamento.setValorTotal(valorCompra);
+							pagamento.setTipoPagamento("CREDITO");
+							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
+							venda.setComprador(action.retornaCompradorByCPF(cpf));
+							venda.setPagamento(pagamento);
+						}
+
+					}
+
+					else {
+						
+						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE DÉBITO.");
+						
+						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra)) {
+
+							pagamento.realizarPagamentobyDebito(action2.retornaVendedorByCNPJ(cnpj),
+								action.retornaCompradorByCPF(cpf), valorCompra);
+							
+							pagamento.setDataVencimento(dataVencimento);
+							pagamento.setDataPagamento(dataPagamento);
+							pagamento.setValorTotal(valorCompra);
+							pagamento.setTipoPagamento("DEBITO");
+							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
+							venda.setComprador(action.retornaCompradorByCPF(cpf));
+							venda.setPagamento(pagamento);
+						}
+					}
+
 				}
 			}
-			
-			}
-			
-		
-			
-			
+
 		}
 	}
-	
+
 }

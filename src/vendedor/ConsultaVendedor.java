@@ -8,7 +8,7 @@ import produto.Produto;
 public class ConsultaVendedor extends Vendedor {
 
 	private Collection<Vendedor> vendedores = new HashSet<>();
-	
+
 	public void adicionarVendedor(Vendedor vendedor) {
 
 		if (vendedores.contains(vendedor)) {
@@ -86,27 +86,53 @@ public class ConsultaVendedor extends Vendedor {
 		}
 
 	}
-	
+
 	public boolean listaVendedoresIsEmpty() {
-		
+
 		boolean vazio = false;
-		
+
 		if (vendedores.isEmpty()) {
-			
+
 			vazio = true;
 		}
-		
+
 		return vazio;
 	}
-		
+
 	public void adicionarItemCatalogo(String cnpj, Produto produto) {
 
 		for (Vendedor vendedor : vendedores) {
 
 			if (vendedor.getCnpj().equals(cnpj)) {
-				vendedor.adicionarItemCatalogo(produto);			
+				vendedor.adicionarItemCatalogo(produto);
 			}
 		}
-	}	
+	}
+
+	public Vendedor retornaVendedorByCNPJ(String cnpj) {
+
+		Vendedor vendedorx = new Vendedor();
+
+		for (Vendedor vendedor : vendedores) {
+
+			if (vendedor.getCnpj().equals(cnpj)) {
+				vendedorx = vendedor;
+			}
+		}
+
+		return vendedorx;
+	}
 	
+	public boolean hasProdutoCatalogo (Vendedor vendedor, int codigo) {
+		
+		boolean existe = false;
+
+		if (vendedor.hasProdutoCatalogo(codigo)) {
+			
+			existe = true;
+		}
+
+		return existe;
+	}
+
 }

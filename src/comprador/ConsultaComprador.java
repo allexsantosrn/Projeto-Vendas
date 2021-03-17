@@ -3,11 +3,10 @@ package comprador;
 import java.util.Collection;
 import java.util.HashSet;
 
-
 public class ConsultaComprador extends Comprador {
 
 	private Collection<Comprador> compradores = new HashSet<>();
-	
+
 	public void adicionarComprador(Comprador comprador) {
 
 		if (compradores.contains(comprador)) {
@@ -83,6 +82,20 @@ public class ConsultaComprador extends Comprador {
 
 		}
 
+	}
+
+	public Comprador retornaCompradorByCPF(String cpf) {
+
+		Comprador compradorx = new Comprador();
+
+		for (Comprador comprador : compradores) {
+
+			if (comprador.getCpf().equals(cpf)) {
+				compradorx = comprador;
+			}
+		}
+
+		return compradorx;
 	}
 
 }

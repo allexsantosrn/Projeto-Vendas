@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class ConsultaProduto extends Produto {
-	
+
 	private Collection<Produto> produtos = new HashSet<>();
 
 	public void adicionarProduto(Produto produto) {
@@ -83,19 +83,19 @@ public class ConsultaProduto extends Produto {
 		}
 
 	}
-	
-	public Produto retornaProdutoByCodigo (int codigo) {
-		
+
+	public Produto retornaProdutoByCodigo(int codigo) {
+
 		Produto produtox = new Produto();
-		
+
 		for (Produto produto : produtos) {
 
 			if (produto.getCodigo() == codigo) {
-				produtox = produto;			
+				produtox = produto;
 			}
 		}
-		
-		return produtox;	
+
+		return produtox;
 	}
 
 }
