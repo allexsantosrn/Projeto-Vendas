@@ -1,5 +1,10 @@
 package pagamento;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import comprador.Comprador;
 import vendedor.Vendedor;
 
@@ -7,10 +12,13 @@ public class FormaPagamento {
 
 	private double valorTotal;
 	private String tipoPagamento;
-	private String dataVencimento;
-	private String dataPagamento;
+	private Date dataVencimento;
+	private Date dataPagamento;
 
 	private final double taxaOperadora = 0.02;
+	private final double valorEmissaoBoleto = 1.00;
+
+	private static final DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 	public double getValorTotal() {
 		return valorTotal;
@@ -28,20 +36,20 @@ public class FormaPagamento {
 		this.tipoPagamento = tipoPagamento;
 	}
 
-	public String getDataVencimento() {
+	public Date getDataVencimento() {
 		return dataVencimento;
 	}
 
-	public void setDataVencimento(String dataVencimento) {
-		this.dataVencimento = dataVencimento;
+	public void setDataVencimento(String dataVencimento) throws ParseException {
+		this.dataVencimento = formatador.parse(dataVencimento);
 	}
 
-	public String getDataPagamento() {
+	public Date getDataPagamento() {
 		return dataPagamento;
 	}
 
-	public void setDataPagamento(String dataPagamento) {
-		this.dataPagamento = dataPagamento;
+	public void setDataPagamento(String dataPagamento) throws ParseException {
+		this.dataPagamento = formatador.parse(dataPagamento);
 	}
 
 	public void realizarPagamentobyPIX(Vendedor vendedor, Comprador comprador, double valorCompra) {
@@ -64,22 +72,46 @@ public class FormaPagamento {
 
 	}
 
-	public void realizarPagamentobyBoleto(Vendedor vendedor, Comprador comprador, double valorCompra) {
+	public void realizarPagamentobyBoleto(Vendedor vendedor, Comprador comprador, double valorCompra,
+			String dataVencimento, String dataPagamento) {
 
-		if (checarFundos(vendedor, comprador, valorCompra)) {
+		Date dataVencimentoConvertida = null;
+		try {
+			dataVencimentoConvertida = convertStringtoDate(dataVencimento);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date dataPagamentoConvertida = null;
+		try {
+			dataPagamentoConvertida = convertStringtoDate(dataPagamento);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			comprador.debitaSaldoVendedor(valorCompra);
-			comprador.incrementaComprasRealizadas();
+		if (!checarFundos(vendedor, comprador, valorCompra)) {
 
-			vendedor.incrementaValoresaReceber(valorCompra);
-			vendedor.incrementaVendasRealizadas();
+			System.out.println("O comprador não possui fundos para realização da compra.");
+		}
 
-			System.out.println("Pagamento realizado com sucesso.");
+		else if (!verificavencimento(dataVencimentoConvertida, dataPagamentoConvertida)) {
+
+			System.out.println(
+					"Boleto vencido. Não é permitido realizar pagamentos após a data de vencimento do boleto.");
 		}
 
 		else {
 
-			System.out.println("O comprador não possui fundos para realização da compra.");
+			double creditoVendedor = valorCompra - valorEmissaoBoleto;
+			comprador.debitaSaldoVendedor(valorCompra);
+			comprador.incrementaComprasRealizadas();
+
+			vendedor.incrementaValoresaReceber(creditoVendedor);
+			vendedor.incrementaVendasRealizadas();
+
+			System.out.println("Pagamento realizado com sucesso.");
+
 		}
 
 	}
@@ -97,9 +129,8 @@ public class FormaPagamento {
 			vendedor.incrementaVendasRealizadas();
 
 			System.out.println("Pagamento realizado com sucesso.");
-		}
 
-		else {
+		} else {
 
 			System.out.println("O comprador não possui fundos para realização da compra.");
 		}
@@ -129,6 +160,29 @@ public class FormaPagamento {
 		}
 
 		return hasFundos;
+	}
+
+	public boolean verificavencimento(Date dataVencimento, Date dataPagamento) {
+
+		boolean data = true;
+
+		if (dataPagamento.after(dataVencimento)) {
+
+			data = false;
+		}
+
+		return data;
+
+	}
+
+	private Date convertStringtoDate(String data) throws ParseException {
+
+		Date dataConvertida;
+
+		dataConvertida = formatador.parse(data);
+
+		return dataConvertida;
+
 	}
 
 }

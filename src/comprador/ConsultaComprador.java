@@ -3,6 +3,8 @@ package comprador;
 import java.util.Collection;
 import java.util.HashSet;
 
+import venda.Venda;
+
 public class ConsultaComprador extends Comprador {
 
 	private Collection<Comprador> compradores = new HashSet<>();
@@ -46,6 +48,8 @@ public class ConsultaComprador extends Comprador {
 				if (comprador.getCpf().equals(cpf)) {
 					System.out.println("");
 					System.out.println(comprador);
+					System.out.println("");
+					comprador.getCompra();
 					break;
 				}
 			}
@@ -96,6 +100,11 @@ public class ConsultaComprador extends Comprador {
 		}
 
 		return compradorx;
+	}
+	
+	public void adicionarCompra(Comprador comprador, Venda venda) {
+
+		comprador.adicionarCompra(venda);
 	}
 
 }

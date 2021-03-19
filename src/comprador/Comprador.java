@@ -1,7 +1,11 @@
 package comprador;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashSet;
+
+import venda.Venda;
 
 public class Comprador {
 
@@ -9,9 +13,12 @@ public class Comprador {
 	private String nome;
 	private double saldo;
 	private double valoresaPagar = 0;
-	private int comprasRealizadas = 0;
+	private int qtdcomprasRealizadas = 0;
 
 	private Collection<Comprador> compradores = new HashSet<>();
+	private Collection<Venda> compras = new HashSet<>();
+
+	private static final DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 	public String getCpf() {
 		return cpf;
@@ -46,33 +53,51 @@ public class Comprador {
 	}
 
 	public int getComprasRealizadas() {
-		return comprasRealizadas;
+		return qtdcomprasRealizadas;
 	}
 
-	public void setComprasRealizadas(int comprasRealizadas) {
-		this.comprasRealizadas = comprasRealizadas;
+	public void setqtdComprasRealizadas(int qtdcomprasRealizadas) {
+		this.qtdcomprasRealizadas = qtdcomprasRealizadas;
 	}
 
 	public void adicionarComprador(Comprador comprador) {
 		compradores.add(comprador);
 	}
-	
-	public void debitaSaldoVendedor (double valor) {
+
+	public void adicionarCompra(Venda venda) {
+		compras.add(venda);
+	}
+
+	public void getCompra() {
+		int i = 1;
+		System.out.println("Compras Realizadas: ");		
+		for (Venda venda : compras) {
+
+			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal() + " / Tipo: "
+					+ venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: " + formatador.format(venda.getPagamento().getDataPagamento()));
+			venda.getItensVenda();
+			System.out.println("");
+					
+			i++;
+		}
+	}
+
+	public void debitaSaldoVendedor(double valor) {
 		this.saldo = this.saldo - valor;
 	}
-	
-	public void incrementaComprasRealizadas() {		
-		this.comprasRealizadas = this.comprasRealizadas + 1;
+
+	public void incrementaComprasRealizadas() {
+		this.qtdcomprasRealizadas = this.qtdcomprasRealizadas + 1;
 	}
-	
+
 	public void incrementaValoresaPagar(double valor) {
-		this.valoresaPagar = this.valoresaPagar + valor;		
+		this.valoresaPagar = this.valoresaPagar + valor;
 	}
 
 	@Override
 	public String toString() {
 		return "CPF: " + this.cpf + "\nNome: " + this.nome + "\nSaldo: " + this.saldo + "\nValores a Pagar: "
-				+ this.valoresaPagar + "\nCompras Realizadas: " + this.comprasRealizadas;
+				+ this.valoresaPagar + "\nQtd. Compras Realizadas: " + this.qtdcomprasRealizadas;
 
 	}
 

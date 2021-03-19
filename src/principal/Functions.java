@@ -1,5 +1,6 @@
 package principal;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 import comprador.Comprador;
@@ -184,7 +185,7 @@ public class Functions {
 			venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
 			System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
 
-			System.out.print("Deseja adicionar mais um produto a compra? (1-Sim / 2-Não): ");
+			System.out.print("Deseja adicionar mais um produto a compra? (1 - Sim / Outra Opção - Não): ");
 			option = input.nextInt();
 
 			while (option == 1) {
@@ -202,7 +203,7 @@ public class Functions {
 							"Não foram localizados produtos com o código informado no catálogo do vendedor selecionado.");
 				}
 
-				System.out.print("Deseja adicionar mais um produto a compra? (1-Sim / 2-Não): ");
+				System.out.print("Deseja adicionar mais um produto a compra? (1 - Sim / Outra Opção - Não): ");
 				option = input.nextInt();
 			}
 
@@ -238,38 +239,60 @@ public class Functions {
 					String dataPagamento = input.next();
 
 					if (option == 1) {
-						
+
 						System.out.println("Você escolheu a opção de pagamento: PIX.");
-						
+
 						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamento.realizarPagamentobyPIX(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
 
-							pagamento.setDataVencimento(dataVencimento);
-							pagamento.setDataPagamento(dataPagamento);
+							try {
+								pagamento.setDataVencimento(dataVencimento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							try {
+								pagamento.setDataPagamento(dataPagamento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							pagamento.setValorTotal(valorCompra);
 							pagamento.setTipoPagamento("PIX");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
 							venda.setPagamento(pagamento);
+							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
+							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 						}
 
 					}
 
 					else if (option == 2) {
-						
+
 						System.out.println("Você escolheu a opção de pagamento: BOLETO BANCÁRIO.");
-						
+
 						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamento.realizarPagamentobyBoleto(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra);
-							
-							pagamento.setDataVencimento(dataVencimento);
-							pagamento.setDataPagamento(dataPagamento);
+									action.retornaCompradorByCPF(cpf), valorCompra, dataVencimento, dataPagamento);
+
+							try {
+								pagamento.setDataVencimento(dataVencimento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							try {
+								pagamento.setDataPagamento(dataPagamento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							pagamento.setValorTotal(valorCompra);
 							pagamento.setTipoPagamento("BOLETO");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
@@ -280,43 +303,65 @@ public class Functions {
 					}
 
 					else if (option == 3) {
-						
+
 						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE CRÉDITO.");
-						
+
 						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamento.realizarPagamentobyCredito(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra);
-							
-							pagamento.setDataVencimento(dataVencimento);
-							pagamento.setDataPagamento(dataPagamento);
+									action.retornaCompradorByCPF(cpf), valorCompra);
+
+							try {
+								pagamento.setDataVencimento(dataVencimento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							try {
+								pagamento.setDataPagamento(dataPagamento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							pagamento.setValorTotal(valorCompra);
 							pagamento.setTipoPagamento("CREDITO");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
 							venda.setPagamento(pagamento);
+							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);							
 						}
 
 					}
 
 					else {
-						
+
 						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE DÉBITO.");
-						
+
 						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamento.realizarPagamentobyDebito(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra);
-							
-							pagamento.setDataVencimento(dataVencimento);
-							pagamento.setDataPagamento(dataPagamento);
+									action.retornaCompradorByCPF(cpf), valorCompra);
+
+							try {
+								pagamento.setDataVencimento(dataVencimento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							try {
+								pagamento.setDataPagamento(dataPagamento);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							pagamento.setValorTotal(valorCompra);
 							pagamento.setTipoPagamento("DEBITO");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
 							venda.setPagamento(pagamento);
+							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);	
 						}
 					}
 

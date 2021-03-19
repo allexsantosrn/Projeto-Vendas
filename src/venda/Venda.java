@@ -12,10 +12,10 @@ public class Venda {
 
 	Comprador comprador;
 	Vendedor vendedor;
-	FormaPagamento pagamento;	
+	FormaPagamento pagamento;
 
 	private Collection<Produto> itens = new HashSet<>();
-	
+
 	public Comprador getComprador() {
 		return comprador;
 	}
@@ -38,7 +38,7 @@ public class Venda {
 
 	public void setPagamento(FormaPagamento pagamento) {
 		this.pagamento = pagamento;
-	}	
+	}
 
 	// Adiciona um produto a coleção de itens da compra
 	public void adicionarItemVenda(Produto produto) {
@@ -55,7 +55,7 @@ public class Venda {
 					+ " - " + produto.getPrecoUnitario());
 			i++;
 		}
-	}
+	}	
 
 	// Retorna o valor total dos itens adicionados à compra.
 	public double getValorProdutos() {

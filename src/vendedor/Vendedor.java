@@ -1,9 +1,12 @@
 package vendedor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashSet;
 
 import produto.Produto;
+import venda.Venda;
 
 public class Vendedor {
 
@@ -11,11 +14,14 @@ public class Vendedor {
 	String nome;
 	double saldo;
 	double valoresReceber = 0;
-	int vendasRealizadas = 0;
+	int qtdvendasRealizadas = 0;
 
 	private Collection<Vendedor> vendedores = new HashSet<>();
 	private Collection<Produto> catalogo = new HashSet<>();
-
+	private Collection<Venda> vendas = new HashSet<>();
+	
+	private static final DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+	
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -48,46 +54,47 @@ public class Vendedor {
 		this.valoresReceber = valoresReceber;
 	}
 
-	public int getVendasRealizadas() {
-		return vendasRealizadas;
+	public int getqtdVendasRealizadas() {
+		return qtdvendasRealizadas;
 	}
 
-	public void setVendasRealizadas(int vendasRealizadas) {
-		this.vendasRealizadas = vendasRealizadas;
+	public void setqtdVendasRealizadas(int qtdvendasRealizadas) {
+		this.qtdvendasRealizadas = qtdvendasRealizadas;
 	}
 
 	public void adicionarVendedor(Vendedor vendedor) {
 		vendedores.add(vendedor);
 	}
-	
+
 	public void adicionarItemCatalogo(Produto produto) {
-		catalogo.add(produto);		
-	}	
-	
+		catalogo.add(produto);
+	}
+
 	public void getProdutosCatalogo() {
-		int i=1;
+		int i = 1;
 		System.out.println("Catálogo de Itens: ");
 		for (Produto produto : catalogo) {
-			
-			System.out.println("Produto" + "[" + i + "]:" + " " + produto.getCodigo()+" - "+produto.getNome()+" - "+produto.getPrecoUnitario());
+
+			System.out.println("Produto" + "[" + i + "] -" + " Código: " + produto.getCodigo() + " / Nome: "
+					+ produto.getNome() + " / Preço: " + produto.getPrecoUnitario());
 			i++;
 		}
 	}
-	
+
 	public void incrementaSaldoVendedor(double valor) {
-		this.saldo = this.saldo + valor;		
+		this.saldo = this.saldo + valor;
 	}
-	
-	public void incrementaVendasRealizadas() {		
-		this.vendasRealizadas = this.vendasRealizadas + 1;
+
+	public void incrementaVendasRealizadas() {
+		this.qtdvendasRealizadas = this.qtdvendasRealizadas + 1;
 	}
-	
+
 	public void incrementaValoresaReceber(double valor) {
-		this.valoresReceber = this.valoresReceber + valor;		
+		this.valoresReceber = this.valoresReceber + valor;
 	}
-	
+
 	public boolean hasProdutoCatalogo(int codigo) {
-		
+
 		boolean existe = false;
 
 		for (Produto produto : catalogo) {
@@ -100,11 +107,28 @@ public class Vendedor {
 		return existe;
 	}
 	
+	public void adicionarVenda(Venda venda) {
+		vendas.add(venda);
+	}
 	
+	public void getVenda() {
+		int i = 1;
+		System.out.println("Vendas Realizadas: ");		
+		for (Venda venda : vendas) {
+
+			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal() + " / Tipo: "
+					+ venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: " + formatador.format(venda.getPagamento().getDataPagamento()));
+			venda.getItensVenda();
+			System.out.println("");
+					
+			i++;
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "CNPJ: " + this.cnpj + "\nNome: " + this.nome + "\nSaldo: " + this.saldo + "\nValores a Receber: "
-				+ this.valoresReceber + "\nVendas Realizadas: " + this.vendasRealizadas;
+				+ this.valoresReceber + "\nQtd. Vendas Realizadas: " + this.qtdvendasRealizadas;
 	}
 
 	@Override

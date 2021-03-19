@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import produto.Produto;
+import venda.Venda;
 
 public class ConsultaVendedor extends Vendedor {
 
@@ -50,6 +51,7 @@ public class ConsultaVendedor extends Vendedor {
 					System.out.println(vendedor);
 					System.out.println("");
 					vendedor.getProdutosCatalogo();
+					vendedor.getVenda();
 					break;
 				}
 			}
@@ -122,17 +124,22 @@ public class ConsultaVendedor extends Vendedor {
 
 		return vendedorx;
 	}
-	
-	public boolean hasProdutoCatalogo (Vendedor vendedor, int codigo) {
-		
+
+	public boolean hasProdutoCatalogo(Vendedor vendedor, int codigo) {
+
 		boolean existe = false;
 
 		if (vendedor.hasProdutoCatalogo(codigo)) {
-			
+
 			existe = true;
 		}
 
 		return existe;
+	}
+	
+	public void adicionarVenda(Vendedor vendedor, Venda venda) {
+
+		vendedor.adicionarVenda(venda);
 	}
 
 }
