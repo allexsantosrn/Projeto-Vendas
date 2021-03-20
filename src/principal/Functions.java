@@ -181,9 +181,15 @@ public class Functions {
 		}
 
 		else {
-
+			
+			System.out.print("Informe a quantidade de itens do produto selecionado: ");
+			int quantidade = input.nextInt();		
+			
+			double valorCompra = 0.0;
+			valorCompra = valorCompra + action3.retornaProdutoByCodigo(codigo).getPrecoUnitario()*quantidade;
+			
 			venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
-			System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
+			System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);			
 
 			System.out.print("Deseja adicionar mais um produto a compra? (1 - Sim / Outra Opção - Não): ");
 			option = input.nextInt();
@@ -194,8 +200,17 @@ public class Functions {
 				codigo = input.nextInt();
 
 				if (action2.hasProdutoCatalogo(action2.retornaVendedorByCNPJ(cnpj), codigo)) {
-					venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
-					System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
+							
+					if (!venda.hasItemVenda(action3.retornaProdutoByCodigo(codigo))) {
+						System.out.print("Informe a quantidade de itens do produto selecionado: ");
+						quantidade = input.nextInt();		
+						
+						valorCompra = valorCompra + action3.retornaProdutoByCodigo(codigo).getPrecoUnitario()*quantidade;
+						
+						venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
+						System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
+					}
+					
 				}
 
 				else {
@@ -205,9 +220,7 @@ public class Functions {
 
 				System.out.print("Deseja adicionar mais um produto a compra? (1 - Sim / Outra Opção - Não): ");
 				option = input.nextInt();
-			}
-
-			double valorCompra = venda.getValorProdutos();
+			}			
 
 			System.out.printf("Total a pagar: %2f \n", valorCompra);
 
@@ -232,10 +245,10 @@ public class Functions {
 
 				else {
 
-					System.out.print("Informe a data de vencimento do boleto: ");
+					System.out.print("Informe a data de vencimento do boleto (Formato: DD/MM/AAAA): ");
 					String dataVencimento = input.next();
 
-					System.out.print("Informe a data de pagamento do boleto: ");
+					System.out.print("Informe a data de pagamento do boleto: (Formato: DD/MM/AAAA): ");
 					String dataPagamento = input.next();
 
 					if (option == 1) {
@@ -298,6 +311,8 @@ public class Functions {
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
 							venda.setPagamento(pagamento);
+							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
+							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 						}
 
 					}
@@ -329,7 +344,8 @@ public class Functions {
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
 							venda.setPagamento(pagamento);
-							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);							
+							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
+							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 						}
 
 					}
@@ -361,7 +377,8 @@ public class Functions {
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
 							venda.setPagamento(pagamento);
-							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);	
+							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
+							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 						}
 					}
 

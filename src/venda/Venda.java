@@ -13,7 +13,8 @@ public class Venda {
 	Comprador comprador;
 	Vendedor vendedor;
 	FormaPagamento pagamento;
-
+	
+	//Coleção de itens pertencentes à venda.
 	private Collection<Produto> itens = new HashSet<>();
 
 	public Comprador getComprador() {
@@ -51,22 +52,27 @@ public class Venda {
 		System.out.println("Itens da venda: ");
 		for (Produto produto : itens) {
 
-			System.out.println("Produto" + "[" + i + "]:" + " " + produto.getCodigo() + " - " + produto.getNome()
-					+ " - " + produto.getPrecoUnitario());
+			System.out.println("Produto" + "[" + i + "] -" + " Código: " + produto.getCodigo() + " - Nome: "
+					+ produto.getNome() + " - Preço Unitário: " + produto.getPrecoUnitario());
 			i++;
 		}
-	}	
-
-	// Retorna o valor total dos itens adicionados à compra.
-	public double getValorProdutos() {
-		double total = 0;
-
-		for (Produto produto : itens) {
-
-			total = total + produto.getPrecoUnitario();
-		}
-
-		return total;
 	}
+	
+	//Retorna true caso o item adicionado já esteja na venda.
+	public boolean hasItemVenda (Produto produto) {
+		
+		boolean existe = false;
+		
+		if (itens.contains(produto)) {
+			existe = true;
+			System.out.println("");
+			System.out.println("Já existe um produto com o código informado nesta venda.");
+		}
+		
+		return existe;
+		
+	}
+	
+	
 
 }
