@@ -32,6 +32,7 @@ public class Menu {
 			System.out.println("8 - Consultar Produto");
 			System.out.println("9 - Listar Produtos");
 			System.out.println("10 - Cadastrar Venda");
+			System.out.println("11 - Listar Vendas");
 			System.out.println("0 - Sair");
 
 			System.out.print("Selecionar Opção: ");
@@ -77,6 +78,10 @@ public class Menu {
 
 			case 10:
 				functions.cadastrarVenda();
+				break;
+				
+			case 11:
+				functions.listarVendas();
 				break;
 
 			case 0:

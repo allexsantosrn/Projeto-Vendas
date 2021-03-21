@@ -19,9 +19,9 @@ public class Vendedor {
 	private Collection<Vendedor> vendedores = new HashSet<>();
 	private Collection<Produto> catalogo = new HashSet<>();
 	private Collection<Venda> vendas = new HashSet<>();
-	
+
 	private static final DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-	
+
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -71,7 +71,7 @@ public class Vendedor {
 	}
 
 	public void getProdutosCatalogo() {
-		int i = 1;
+		int i = 1;		
 		System.out.println("Catálogo de Itens: ");
 		for (Produto produto : catalogo) {
 
@@ -79,6 +79,7 @@ public class Vendedor {
 					+ produto.getNome() + " / Preço: " + produto.getPrecoUnitario());
 			i++;
 		}
+		System.out.println("");
 	}
 
 	public void incrementaSaldoVendedor(double valor) {
@@ -106,21 +107,21 @@ public class Vendedor {
 
 		return existe;
 	}
-	
+
 	public void adicionarVenda(Venda venda) {
 		vendas.add(venda);
 	}
-	
+
 	public void getVenda() {
 		int i = 1;
-		System.out.println("Vendas Realizadas: ");		
+		System.out.println("Vendas Realizadas: ");
 		for (Venda venda : vendas) {
 
-			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal() + " / Tipo: "
-					+ venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: " + formatador.format(venda.getPagamento().getDataPagamento()));
+			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal()
+					+ " / Tipo de Pagamento: " + venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: "
+					+ formatador.format(venda.getPagamento().getDataPagamento()));
 			venda.getItensVenda();
 			System.out.println("");
-					
 			i++;
 		}
 	}

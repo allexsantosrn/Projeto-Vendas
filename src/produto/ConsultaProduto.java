@@ -7,18 +7,20 @@ public class ConsultaProduto extends Produto {
 
 	private Collection<Produto> produtos = new HashSet<>();
 
-	//Adiciona um produto na listagem de produtos.
+	// Adiciona um produto na listagem de produtos.
 	public void adicionarProduto(Produto produto) {
 
 		if (produtos.contains(produto)) {
 			System.out.println("");
 			System.out.println("Já existe um produto com o código informado na base de dados.");
+			System.out.println("");
 		}
 
 		else {
 			produtos.add(produto);
 			System.out.println("");
 			System.out.println("Produto cadastrado com sucesso.");
+			System.out.println("");
 		}
 
 	}
@@ -38,7 +40,7 @@ public class ConsultaProduto extends Produto {
 		return existe;
 	}
 
-	//Realiza a consulta do produto pelo código
+	// Realiza a consulta do produto pelo código
 	public void consultarProduto(int codigo) {
 
 		if (hasProduto(codigo)) {
@@ -56,11 +58,12 @@ public class ConsultaProduto extends Produto {
 		else {
 			System.out.println("");
 			System.out.println("Não foram localizados produtos com o código informado.");
+			System.out.println("");
 		}
 
 	}
 
-	//Retorna a lista de produtos
+	// Retorna a lista de produtos
 	public void listarProdutos() {
 
 		if (produtos.isEmpty()) {
@@ -86,8 +89,8 @@ public class ConsultaProduto extends Produto {
 		}
 
 	}
-	
-	//Retorna o produto pelo seu código
+
+	// Retorna o produto pelo seu código
 	public Produto retornaProdutoByCodigo(int codigo) {
 
 		Produto produtox = new Produto();

@@ -14,12 +14,14 @@ public class ConsultaComprador extends Comprador {
 		if (compradores.contains(comprador)) {
 			System.out.println("");
 			System.out.println("Já existe um comprador com o código informado na base de dados.");
+			System.out.println("");
 		}
 
 		else {
 			compradores.add(comprador);
 			System.out.println("");
 			System.out.println("Comprador cadastrado com sucesso.");
+			System.out.println("");
 		}
 
 	}
@@ -48,7 +50,6 @@ public class ConsultaComprador extends Comprador {
 				if (comprador.getCpf().equals(cpf)) {
 					System.out.println("");
 					System.out.println(comprador);
-					System.out.println("");
 					comprador.getCompra();
 					break;
 				}
@@ -58,6 +59,7 @@ public class ConsultaComprador extends Comprador {
 		else {
 			System.out.println("");
 			System.out.println("Não foram localizados compradores com o CPF informado.");
+			System.out.println("");
 		}
 
 	}
@@ -77,8 +79,8 @@ public class ConsultaComprador extends Comprador {
 
 			for (Comprador comprador : compradores) {
 
-				System.out.println("Comprador" + "[" + i + "] -" + " Nome: " + comprador.getNome() + " - CPF: "
-						+ comprador.getCpf());
+				System.out.println("Comprador" + "[" + i + "] -" + " CPF: " + comprador.getCpf() + " - Nome: "
+						+ comprador.getNome());
 				i++;
 			}
 
@@ -101,7 +103,7 @@ public class ConsultaComprador extends Comprador {
 
 		return compradorx;
 	}
-	
+
 	public void adicionarCompra(Comprador comprador, Venda venda) {
 
 		comprador.adicionarCompra(venda);

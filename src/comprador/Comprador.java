@@ -70,16 +70,18 @@ public class Comprador {
 
 	public void getCompra() {
 		int i = 1;
-		System.out.println("Compras Realizadas: ");		
+		System.out.println("");
+		System.out.println("Compras Realizadas: ");
 		for (Venda venda : compras) {
 
-			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal() + " / Tipo: "
-					+ venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: " + formatador.format(venda.getPagamento().getDataPagamento()));
+			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal()
+					+ " / Tipo de Pagamento: " + venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: "
+					+ formatador.format(venda.getPagamento().getDataPagamento()));
 			venda.getItensVenda();
 			System.out.println("");
-					
 			i++;
 		}
+		
 	}
 
 	public void debitaSaldoVendedor(double valor) {

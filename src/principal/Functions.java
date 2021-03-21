@@ -1,13 +1,19 @@
 package principal;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import comprador.Comprador;
 import comprador.ConsultaComprador;
-import pagamento.FormaPagamento;
+import pagamento.PagamentoBoleto;
+import pagamento.PagamentoCredito;
+import pagamento.PagamentoDebito;
+import pagamento.PagamentoPIX;
 import produto.ConsultaProduto;
 import produto.Produto;
+import venda.ConsultaVenda;
 import venda.Venda;
 import vendedor.ConsultaVendedor;
 import vendedor.Vendedor;
@@ -21,6 +27,8 @@ public class Functions {
 	ConsultaVendedor action2 = new ConsultaVendedor();
 
 	ConsultaProduto action3 = new ConsultaProduto();
+	
+	ConsultaVenda action4 = new ConsultaVenda();	
 
 	public void cadastrarComprador() {
 
@@ -147,6 +155,11 @@ public class Functions {
 
 		action3.listarProdutos();
 	}
+	
+	public void listarVendas() {
+		
+		action4.listarVendas();
+	}
 
 	public void cadastrarVenda() {
 
@@ -181,15 +194,15 @@ public class Functions {
 		}
 
 		else {
-			
+
 			System.out.print("Informe a quantidade de itens do produto selecionado: ");
-			int quantidade = input.nextInt();		
-			
+			int quantidade = input.nextInt();
+
 			double valorCompra = 0.0;
-			valorCompra = valorCompra + action3.retornaProdutoByCodigo(codigo).getPrecoUnitario()*quantidade;
-			
+			valorCompra = valorCompra + action3.retornaProdutoByCodigo(codigo).getPrecoUnitario() * quantidade;
+
 			venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
-			System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);			
+			System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
 
 			System.out.print("Deseja adicionar mais um produto a compra? (1 - Sim / Outra Opção - Não): ");
 			option = input.nextInt();
@@ -200,17 +213,18 @@ public class Functions {
 				codigo = input.nextInt();
 
 				if (action2.hasProdutoCatalogo(action2.retornaVendedorByCNPJ(cnpj), codigo)) {
-							
+
 					if (!venda.hasItemVenda(action3.retornaProdutoByCodigo(codigo))) {
 						System.out.print("Informe a quantidade de itens do produto selecionado: ");
-						quantidade = input.nextInt();		
-						
-						valorCompra = valorCompra + action3.retornaProdutoByCodigo(codigo).getPrecoUnitario()*quantidade;
-						
+						quantidade = input.nextInt();
+
+						valorCompra = valorCompra
+								+ action3.retornaProdutoByCodigo(codigo).getPrecoUnitario() * quantidade;
+
 						venda.adicionarItemVenda(action3.retornaProdutoByCodigo(codigo));
 						System.out.printf("Produto de código: %d adicionado com sucesso. \n", codigo);
 					}
-					
+
 				}
 
 				else {
@@ -220,11 +234,9 @@ public class Functions {
 
 				System.out.print("Deseja adicionar mais um produto a compra? (1 - Sim / Outra Opção - Não): ");
 				option = input.nextInt();
-			}			
+			}
 
 			System.out.printf("Total a pagar: %2f \n", valorCompra);
-
-			FormaPagamento pagamento = new FormaPagamento();
 
 			System.out.println("Informe a opção de pagamento: ");
 			option = 5;
@@ -245,41 +257,36 @@ public class Functions {
 
 				else {
 
-					System.out.print("Informe a data de vencimento do boleto (Formato: DD/MM/AAAA): ");
-					String dataVencimento = input.next();
-
-					System.out.print("Informe a data de pagamento do boleto: (Formato: DD/MM/AAAA): ");
-					String dataPagamento = input.next();
+					LocalDateTime agora = LocalDateTime.now();
+					DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+					String dataPagamento = formatterData.format(agora);
 
 					if (option == 1) {
 
 						System.out.println("Você escolheu a opção de pagamento: PIX.");
 
-						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+						PagamentoPIX pagamentoPIX = new PagamentoPIX();
+
+						if (pagamentoPIX.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
-							pagamento.realizarPagamentobyPIX(action2.retornaVendedorByCNPJ(cnpj),
+							pagamentoPIX.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
 
 							try {
-								pagamento.setDataVencimento(dataVencimento);
+								pagamentoPIX.setDataPagamento(dataPagamento);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							try {
-								pagamento.setDataPagamento(dataPagamento);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							pagamento.setValorTotal(valorCompra);
-							pagamento.setTipoPagamento("PIX");
+							pagamentoPIX.setValorTotal(valorCompra);
+							pagamentoPIX.setTipoPagamento("PIX");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
-							venda.setPagamento(pagamento);
+							venda.setPagamento(pagamentoPIX);
 							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
+							action4.adicionarVenda(venda);
 						}
 
 					}
@@ -288,31 +295,38 @@ public class Functions {
 
 						System.out.println("Você escolheu a opção de pagamento: BOLETO BANCÁRIO.");
 
-						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+						System.out.print("Informe a data de vencimento do boleto: ");
+						String dataVencimento = input.next();
+
+						PagamentoBoleto pagamentoBoleto = new PagamentoBoleto();
+
+						if (pagamentoBoleto.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
-							pagamento.realizarPagamentobyBoleto(action2.retornaVendedorByCNPJ(cnpj),
+							pagamentoBoleto.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra, dataVencimento, dataPagamento);
 
 							try {
-								pagamento.setDataVencimento(dataVencimento);
+								pagamentoBoleto.setDataVencimento(dataVencimento);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							try {
-								pagamento.setDataPagamento(dataPagamento);
+								pagamentoBoleto.setDataPagamento(dataPagamento);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							pagamento.setValorTotal(valorCompra);
-							pagamento.setTipoPagamento("BOLETO");
+
+							pagamentoBoleto.setValorTotal(valorCompra);
+							pagamentoBoleto.setTipoPagamento("BOLETO");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
-							venda.setPagamento(pagamento);
+							venda.setPagamento(pagamentoBoleto);
 							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
+							action4.adicionarVenda(venda);
 						}
 
 					}
@@ -321,31 +335,28 @@ public class Functions {
 
 						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE CRÉDITO.");
 
-						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+						PagamentoCredito pagamentoCredito = new PagamentoCredito();
+
+						if (pagamentoCredito.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
-							pagamento.realizarPagamentobyCredito(action2.retornaVendedorByCNPJ(cnpj),
+							pagamentoCredito.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
 
 							try {
-								pagamento.setDataVencimento(dataVencimento);
+								pagamentoCredito.setDataPagamento(dataPagamento);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							try {
-								pagamento.setDataPagamento(dataPagamento);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							pagamento.setValorTotal(valorCompra);
-							pagamento.setTipoPagamento("CREDITO");
+							pagamentoCredito.setValorTotal(valorCompra);
+							pagamentoCredito.setTipoPagamento("CREDITO");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
-							venda.setPagamento(pagamento);
+							venda.setPagamento(pagamentoCredito);
 							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
+							action4.adicionarVenda(venda);
 						}
 
 					}
@@ -354,31 +365,28 @@ public class Functions {
 
 						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE DÉBITO.");
 
-						if (pagamento.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
+						PagamentoDebito pagamentoDebito = new PagamentoDebito();
+
+						if (pagamentoDebito.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
 								action.retornaCompradorByCPF(cpf), valorCompra)) {
 
-							pagamento.realizarPagamentobyDebito(action2.retornaVendedorByCNPJ(cnpj),
+							pagamentoDebito.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
 
 							try {
-								pagamento.setDataVencimento(dataVencimento);
+								pagamentoDebito.setDataPagamento(dataPagamento);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							try {
-								pagamento.setDataPagamento(dataPagamento);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							pagamento.setValorTotal(valorCompra);
-							pagamento.setTipoPagamento("DEBITO");
+							pagamentoDebito.setValorTotal(valorCompra);
+							pagamentoDebito.setTipoPagamento("DEBITO");
 							venda.setVendedor(action2.retornaVendedorByCNPJ(cnpj));
 							venda.setComprador(action.retornaCompradorByCPF(cpf));
-							venda.setPagamento(pagamento);
+							venda.setPagamento(pagamentoDebito);
 							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
+							action4.adicionarVenda(venda);
 						}
 					}
 

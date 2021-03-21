@@ -15,12 +15,14 @@ public class ConsultaVendedor extends Vendedor {
 		if (vendedores.contains(vendedor)) {
 			System.out.println("");
 			System.out.println("Já existe um vendedor com o cnpj informado na base de dados.");
+			System.out.println("");
 		}
 
 		else {
 			vendedores.add(vendedor);
 			System.out.println("");
 			System.out.println("Vendedor cadastrado com sucesso.");
+			System.out.println("");
 		}
 
 	}
@@ -50,7 +52,7 @@ public class ConsultaVendedor extends Vendedor {
 					System.out.println("");
 					System.out.println(vendedor);
 					System.out.println("");
-					vendedor.getProdutosCatalogo();
+					vendedor.getProdutosCatalogo();					
 					vendedor.getVenda();
 					break;
 				}
@@ -60,6 +62,7 @@ public class ConsultaVendedor extends Vendedor {
 		else {
 			System.out.println("");
 			System.out.println("Não foram localizados vendedores com o CPF informado.");
+			System.out.println("");
 		}
 
 	}
@@ -78,8 +81,8 @@ public class ConsultaVendedor extends Vendedor {
 			System.out.println("");
 
 			for (Vendedor vendedor : vendedores) {
-				System.out.println("vendedor" + "[" + i + "] -" + " Nome: " + vendedor.getNome() + " - CNPJ: "
-						+ vendedor.getCnpj());
+				System.out.println("vendedor" + "[" + i + "] -" + " CPNJ: " + vendedor.getCnpj() + " - Nome: "
+						+ vendedor.getNome());
 				i++;
 			}
 
