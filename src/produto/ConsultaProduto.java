@@ -50,6 +50,7 @@ public class ConsultaProduto extends Produto {
 				if (produto.getCodigo() == codigo) {
 					System.out.println("");
 					System.out.println(produto);
+					System.out.println("");
 					break;
 				}
 			}
