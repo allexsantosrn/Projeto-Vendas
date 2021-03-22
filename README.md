@@ -1,4 +1,4 @@
-# Projeto Final de Linguagem de Programação I
+# Projeto Final de Linguagem de Programação II
 
 ### Projeto-Vendas
 
@@ -8,7 +8,7 @@
 
 **Professor:**
 	
-- Silvio Costa Sampaio
+- Vinícius Mendes
 
 ## Objetivo
 
@@ -34,10 +34,10 @@ A tarefa central do projeto foi desenvolver um programa em Java para controlar u
 
 ## Detalhes de desenvolvimento:
 
-Para cadastro de compradores temos as opções de cadastrar, consultar e listar compradores. No cadastro, não será permitido adicionar dois compradores com o mesmo CPF.
-Para cadastro de vendedores temos as opções de cadastrar, consultar e listar vendedores. No cadastro, não será permitido adicionar dois compradores com o mesmo CNPJ.
-Para cadastro de produtos temos as opções de cadastrar, consultar e listar produtos. No cadastro, não será permitido adicionar dois compradores com o mesmo código. Um produto deve também fazer parte do catálogo de um vendedor.
-Para cadastro da compra/venda, o sistema só permitirá o registro para compradores, vendedores e produtos cadastrados no sistema. Aĺém disso o sistema checará se o produto adicionado a compra pertence ao catálogo do vendedor selecionado. Opcionalmente também é possível selecionar outros produtos do catálogo do vendedor, durante a compra.
+- Para cadastro de compradores temos as opções de cadastrar, consultar e listar compradores. No cadastro, não será permitido adicionar dois compradores com o mesmo CPF.
+- Para cadastro de vendedores temos as opções de cadastrar, consultar e listar vendedores. No cadastro, não será permitido adicionar dois compradores com o mesmo CNPJ.
+- Para cadastro de produtos temos as opções de cadastrar, consultar e listar produtos. No cadastro, não será permitido adicionar dois compradores com o mesmo código. Um produto deve também fazer parte do catálogo de um vendedor.
+- Para cadastro da compra/venda, o sistema só permitirá o registro para compradores, vendedores e produtos cadastrados no sistema. Aĺém disso o sistema checará se o produto adicionado a compra pertence ao catálogo do vendedor selecionado. Opcionalmente também é possível selecionar outros produtos do catálogo do vendedor, durante a compra.
 
 No registro do pagamento é possível realizar os seguintes tipos de pagamento: 
 
@@ -46,9 +46,9 @@ No registro do pagamento é possível realizar os seguintes tipos de pagamento:
 	3 - Pagamento por Cartão de Crédito;
 	4 - Pagamento por Cartão de Débito;
 
-Para pagamento por PIX, o comprador necessita ter fundos para realização da compra, neste ponto, haverá transferência de recursos do comprador para o vendedor.
-Para pagamento por Boleto, o comprador necessita ter fundos para realização da compra. Além disso, deverá ser informada também a data de vencimento do boleto, não podendo este boleto estar vencido para pagamento. Por fim, haverá transferência de recursos do comprador para a área de recursos a receber do vendedor, havendo também um desconto de 1 real pela geração do boleto.
-Para pagamento por Cartão de Crédito, não haverá necessidade do comprador ter fundos para pagamento. Neste ponto, haverá incremento dos registros de valores a pagar do comprador para a área de valores a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
-Paga pagamento por Débito, o comprador necessita ter fundos para relização da compra, neste ponto, haverá transferência de recursos do comprador para a area de recursos a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
+- Para pagamento por PIX, o comprador necessita ter fundos para realização da compra, neste ponto, haverá transferência de recursos do comprador para o vendedor.
+- Para pagamento por Boleto, o comprador necessita ter fundos para realização da compra. Além disso, deverá ser informada também a data de vencimento do boleto, não podendo este boleto estar vencido para pagamento. Por fim, haverá transferência de recursos do comprador para a área de recursos a receber do vendedor, havendo também um desconto de 1 real pela geração do boleto.
+- Para pagamento por Cartão de Crédito, não haverá necessidade do comprador ter fundos para pagamento. Neste ponto, haverá incremento dos registros de valores a pagar do comprador para a área de valores a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
+- Para pagamento por Débito, o comprador necessita ter fundos para relização da compra, neste ponto, haverá transferência de recursos do comprador para a area de recursos a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
 
 OBS: Em todas as formas de pagamento, será considerada a data atual como data de pagamento.
