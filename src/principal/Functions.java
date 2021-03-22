@@ -247,7 +247,7 @@ public class Functions {
 				option = input.nextInt();
 			}
 
-			System.out.printf("Total a pagar: %2f \n", valorCompra);
+			System.out.printf("Total a pagar: %.2f \n", valorCompra);
 
 			System.out.println("Informe a opção de pagamento: ");
 			option = 5;
