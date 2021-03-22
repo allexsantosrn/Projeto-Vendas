@@ -16,7 +16,8 @@ O objetivo deste trabalho é implementar um programa de cadastro de venda, possi
 
 ## Tarefa
 
-A tarefa central do projeto foi desenvolver um programa em Java para controlar um sistema de cadastro de vendas, possuindo a possibilidade de cadastro de compradores, vendedores e produtos.
+A tarefa central do projeto foi desenvolver um programa em Java para controlar um sistema de cadastro de vendas, possuindo a possibilidade de cadastro de compradores, vendedores e produtos. 
+O link do repositório do projeto é este: https://github.com/allexsantosrn/Projeto-Vendas.
 
 ## Operações suportadas
 
@@ -37,7 +38,7 @@ A tarefa central do projeto foi desenvolver um programa em Java para controlar u
 - Para cadastro de compradores temos as opções de cadastrar, consultar e listar compradores. No cadastro, não será permitido adicionar dois compradores com o mesmo CPF.
 - Para cadastro de vendedores temos as opções de cadastrar, consultar e listar vendedores. No cadastro, não será permitido adicionar dois compradores com o mesmo CNPJ.
 - Para cadastro de produtos temos as opções de cadastrar, consultar e listar produtos. No cadastro, não será permitido adicionar dois compradores com o mesmo código. Um produto deve também fazer parte do catálogo de um vendedor.
-- Para cadastro da compra/venda, o sistema só permitirá o registro para compradores, vendedores e produtos cadastrados no sistema. Aĺém disso o sistema checará se o produto adicionado a compra pertence ao catálogo do vendedor selecionado. Opcionalmente também é possível selecionar outros produtos do catálogo do vendedor, durante a compra.
+- Para cadastro da compra/venda, o sistema só permitirá o registro para compradores, vendedores e produtos cadastrados no sistema. Aĺém disso o sistema checará se o produto adicionado a compra pertence ao catálogo do vendedor selecionado. Opcionalmente também é possível selecionar outros produtos do catálogo do vendedor, durante a compra. 
 
 No registro do pagamento é possível realizar os seguintes tipos de pagamento: 
 
