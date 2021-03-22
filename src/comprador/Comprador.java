@@ -9,14 +9,13 @@ import venda.Venda;
 
 public class Comprador {
 
-	private String cpf;
-	private String nome;
-	private double saldo;
-	private double valoresaPagar = 0;
-	private int qtdcomprasRealizadas = 0;
+	private String cpf; //Cpf do comprador.
+	private String nome; //Nome do comprador.
+	private double saldo; //Saldo do comprador.
+	private double valoresaPagar = 0; //Total de valores a pagar do comprador.
+	private int qtdcomprasRealizadas = 0; //Número de compras realizadas pelo comprador.
 
-	private Collection<Comprador> compradores = new HashSet<>();
-	private Collection<Venda> compras = new HashSet<>();
+	private Collection<Venda> compras = new HashSet<>(); //Coleção de compras do comprador.
 
 	private static final DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -58,40 +57,39 @@ public class Comprador {
 
 	public void setqtdComprasRealizadas(int qtdcomprasRealizadas) {
 		this.qtdcomprasRealizadas = qtdcomprasRealizadas;
-	}
+	}	
 
-	public void adicionarComprador(Comprador comprador) {
-		compradores.add(comprador);
-	}
-
+	//Adiciona uma compra/venda a coleção de compras.
 	public void adicionarCompra(Venda venda) {
 		compras.add(venda);
 	}
 
+	//Retorna os itens comprados pelo comprador.
 	public void getCompra() {
-		int i = 1;
+		int i = 1;		
 		System.out.println("");
-		System.out.println("Compras Realizadas: ");
+		System.out.println("Compras Realizadas: ");		
 		for (Venda venda : compras) {
 
 			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal()
 					+ " / Tipo de Pagamento: " + venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: "
 					+ formatador.format(venda.getPagamento().getDataPagamento()));
-			venda.getItensVenda();
-			System.out.println("");
+			venda.getItensVenda();			
 			i++;
-		}
-		
+		}		
 	}
-
+	
+	//Debita o saldo do vendedor.
 	public void debitaSaldoVendedor(double valor) {
 		this.saldo = this.saldo - valor;
 	}
 
+	//Incrementa o número de compras realizadas pelo comprador.
 	public void incrementaComprasRealizadas() {
 		this.qtdcomprasRealizadas = this.qtdcomprasRealizadas + 1;
 	}
-
+	
+	//Incretmenta os valores a pagar pelo comprador.
 	public void incrementaValoresaPagar(double valor) {
 		this.valoresaPagar = this.valoresaPagar + valor;
 	}

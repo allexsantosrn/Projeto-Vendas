@@ -8,8 +8,9 @@ import venda.Venda;
 
 public class ConsultaVendedor extends Vendedor {
 
-	private Collection<Vendedor> vendedores = new HashSet<>();
+	private Collection<Vendedor> vendedores = new HashSet<>(); //Coleção de vendedores.
 
+	//Adiciona um vendedor a coleção de vendedores.
 	public void adicionarVendedor(Vendedor vendedor) {
 
 		if (vendedores.contains(vendedor)) {
@@ -42,6 +43,7 @@ public class ConsultaVendedor extends Vendedor {
 		return existe;
 	}
 
+	//Realiza a consulta de um vendedor.
 	public void consultarVendedor(String cnpj) {
 
 		if (hasVendedor(cnpj)) {
@@ -50,8 +52,7 @@ public class ConsultaVendedor extends Vendedor {
 
 				if (vendedor.getCnpj().equals(cnpj)) {
 					System.out.println("");
-					System.out.println(vendedor);
-					System.out.println("");
+					System.out.println(vendedor);					
 					vendedor.getProdutosCatalogo();					
 					vendedor.getVenda();
 					break;
@@ -66,7 +67,8 @@ public class ConsultaVendedor extends Vendedor {
 		}
 
 	}
-
+	
+	//Retorna a listagem de vendedores.
 	public void listarVendedores() {
 
 		if (vendedores.isEmpty()) {
@@ -91,7 +93,8 @@ public class ConsultaVendedor extends Vendedor {
 		}
 
 	}
-
+	
+	//Retorna true caso a lista de vendedores seja vazia.
 	public boolean listaVendedoresIsEmpty() {
 
 		boolean vazio = false;
@@ -104,6 +107,7 @@ public class ConsultaVendedor extends Vendedor {
 		return vazio;
 	}
 
+	//Recebe uma um CNPJ e um produto para adição ao catálogo do vendedor.
 	public void adicionarItemCatalogo(String cnpj, Produto produto) {
 
 		for (Vendedor vendedor : vendedores) {
@@ -114,6 +118,7 @@ public class ConsultaVendedor extends Vendedor {
 		}
 	}
 
+	//Retorna um objeto Vendedor através do CNPJ.
 	public Vendedor retornaVendedorByCNPJ(String cnpj) {
 
 		Vendedor vendedorx = new Vendedor();
@@ -127,7 +132,8 @@ public class ConsultaVendedor extends Vendedor {
 
 		return vendedorx;
 	}
-
+	
+	//Retorna true caso o código do produto informado exista no catálogo do vendedor.
 	public boolean hasProdutoCatalogo(Vendedor vendedor, int codigo) {
 
 		boolean existe = false;
@@ -140,6 +146,7 @@ public class ConsultaVendedor extends Vendedor {
 		return existe;
 	}
 	
+	//Recebe uma venda para adição a listagem de vendas do vendedor.
 	public void adicionarVenda(Vendedor vendedor, Venda venda) {
 
 		vendedor.adicionarVenda(venda);

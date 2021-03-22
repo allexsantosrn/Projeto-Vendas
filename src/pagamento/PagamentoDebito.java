@@ -5,9 +5,10 @@ import vendedor.Vendedor;
 
 public class PagamentoDebito extends FormaPagamento {
 
+	//Método que realiza o pagamento por débito.
 	public void realizarPagamento(Vendedor vendedor, Comprador comprador, double valorCompra) {
 
-		if (checarFundos(vendedor, comprador, valorCompra)) {
+		if (checarFundos(comprador, valorCompra)) {
 
 			double creditoVendedor = valorCompra - (valorCompra * this.taxaOperadora);
 

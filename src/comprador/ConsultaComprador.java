@@ -7,8 +7,9 @@ import venda.Venda;
 
 public class ConsultaComprador extends Comprador {
 
-	private Collection<Comprador> compradores = new HashSet<>();
+	private Collection<Comprador> compradores = new HashSet<>(); //Coleção de compradores.
 
+	//Adiciona um comprador a coleção de compradores.
 	public void adicionarComprador(Comprador comprador) {
 
 		if (compradores.contains(comprador)) {
@@ -40,7 +41,8 @@ public class ConsultaComprador extends Comprador {
 
 		return existe;
 	}
-
+	
+	//Retorna os dados de um comprador.
 	public void consultarComprador(String cpf) {
 
 		if (hasComprador(cpf)) {
@@ -64,6 +66,7 @@ public class ConsultaComprador extends Comprador {
 
 	}
 
+	//Retorna a listagem de todos os compradores.
 	public void listarCompradores() {
 
 		if (compradores.isEmpty()) {
@@ -89,7 +92,8 @@ public class ConsultaComprador extends Comprador {
 		}
 
 	}
-
+	
+	//Retorna um objeto comprador através do cpf do comprador.
 	public Comprador retornaCompradorByCPF(String cpf) {
 
 		Comprador compradorx = new Comprador();
@@ -103,7 +107,8 @@ public class ConsultaComprador extends Comprador {
 
 		return compradorx;
 	}
-
+	
+	//Recebe uma compra para adição a listagem de compras do vendedor.
 	public void adicionarCompra(Comprador comprador, Venda venda) {
 
 		comprador.adicionarCompra(venda);

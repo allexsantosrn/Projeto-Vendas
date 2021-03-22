@@ -5,6 +5,7 @@ import vendedor.Vendedor;
 
 public class PagamentoCredito extends FormaPagamento {
 
+	//Método que realiza o pagamento por cartão de crédito.
 	public void realizarPagamento(Vendedor vendedor, Comprador comprador, double valorCompra) {
 
 		double creditoVendedor = valorCompra - (valorCompra * this.taxaOperadora);

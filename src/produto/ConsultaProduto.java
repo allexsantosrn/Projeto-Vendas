@@ -7,7 +7,7 @@ public class ConsultaProduto extends Produto {
 
 	private Collection<Produto> produtos = new HashSet<>();
 
-	// Adiciona um produto na listagem de produtos.
+	// Adiciona um produto a coleção de produtos.
 	public void adicionarProduto(Produto produto) {
 
 		if (produtos.contains(produto)) {
@@ -90,7 +90,7 @@ public class ConsultaProduto extends Produto {
 
 	}
 
-	// Retorna o produto pelo seu código
+	// Retorna o objeto produto pelo seu código
 	public Produto retornaProdutoByCodigo(int codigo) {
 
 		Produto produtox = new Produto();

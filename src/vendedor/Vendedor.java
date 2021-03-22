@@ -10,15 +10,14 @@ import venda.Venda;
 
 public class Vendedor {
 
-	String cnpj;
-	String nome;
-	double saldo;
-	double valoresReceber = 0;
-	int qtdvendasRealizadas = 0;
+	String cnpj; //CNPJ do vendedor.
+	String nome; //Nome do vendedor.
+	double saldo; //Saldo do vendedor.
+	double valoresReceber = 0; //Total de valores a receber.
+	int qtdvendasRealizadas = 0; //Quantidade de vendas realizadas.
 
-	private Collection<Vendedor> vendedores = new HashSet<>();
-	private Collection<Produto> catalogo = new HashSet<>();
-	private Collection<Venda> vendas = new HashSet<>();
+	private Collection<Produto> catalogo = new HashSet<>(); //Coleção de produtos - Catálogo
+	private Collection<Venda> vendas = new HashSet<>(); //Coleção de vendas realizadas 
 
 	private static final DateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -62,38 +61,40 @@ public class Vendedor {
 		this.qtdvendasRealizadas = qtdvendasRealizadas;
 	}
 
-	public void adicionarVendedor(Vendedor vendedor) {
-		vendedores.add(vendedor);
-	}
-
+	//Adiciona um produto ao catálogo do vendedor.
 	public void adicionarItemCatalogo(Produto produto) {
 		catalogo.add(produto);
 	}
-
+	
+	//Exibe o catálogo de itens do vendedor.
 	public void getProdutosCatalogo() {
 		int i = 1;		
-		System.out.println("Catálogo de Itens: ");
+		System.out.println("");
+		System.out.println("Catálogo de Itens: ");		
 		for (Produto produto : catalogo) {
 
 			System.out.println("Produto" + "[" + i + "] -" + " Código: " + produto.getCodigo() + " / Nome: "
-					+ produto.getNome() + " / Preço: " + produto.getPrecoUnitario());
+					+ produto.getNome() + " / Preço: " + produto.getPrecoUnitario());			
 			i++;
-		}
-		System.out.println("");
+		}		
 	}
 
+	//Incrementa o saldo do vendedor.
 	public void incrementaSaldoVendedor(double valor) {
 		this.saldo = this.saldo + valor;
 	}
 
+	//Incrementa o número de vendas realizadas pelo vendedor.
 	public void incrementaVendasRealizadas() {
 		this.qtdvendasRealizadas = this.qtdvendasRealizadas + 1;
 	}
-
+	
+	//Incrementa os valores a receber do vendedor.
 	public void incrementaValoresaReceber(double valor) {
 		this.valoresReceber = this.valoresReceber + valor;
 	}
 
+	//Retorna true caso o produto exista no catálogo do vendedor.
 	public boolean hasProdutoCatalogo(int codigo) {
 
 		boolean existe = false;
@@ -108,22 +109,24 @@ public class Vendedor {
 		return existe;
 	}
 
+	//Adiciona uma venda a coleção de vendas.
 	public void adicionarVenda(Venda venda) {
 		vendas.add(venda);
 	}
 
+	//Imprime as vendas do vendedor.
 	public void getVenda() {
 		int i = 1;
-		System.out.println("Vendas Realizadas: ");
+		System.out.println("");
+		System.out.println("Vendas Realizadas: ");		
 		for (Venda venda : vendas) {
 
 			System.out.println("Compra" + "[" + i + "] -" + " Valor Total: " + venda.getPagamento().getValorTotal()
 					+ " / Tipo de Pagamento: " + venda.getPagamento().getTipoPagamento() + " / Data de Pagamento: "
 					+ formatador.format(venda.getPagamento().getDataPagamento()));
-			venda.getItensVenda();
-			System.out.println("");
+			venda.getItensVenda();			
 			i++;
-		}
+		}		
 	}
 
 	@Override

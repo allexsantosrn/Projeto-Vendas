@@ -5,17 +5,17 @@ import vendedor.Vendedor;
 
 public class PagamentoPIX extends FormaPagamento{	
 	
-
+	//Método que realiza o pagamento por PIX.
 	public void realizarPagamento(Vendedor vendedor, Comprador comprador, double valorCompra) {
 
-		if (checarFundos(vendedor, comprador, valorCompra)) {
+		if (checarFundos(comprador, valorCompra)) {
 
 			comprador.debitaSaldoVendedor(valorCompra);
 			comprador.incrementaComprasRealizadas();
 
 			vendedor.incrementaSaldoVendedor(valorCompra);
 			vendedor.incrementaVendasRealizadas();
-
+			
 			System.out.println("Pagamento realizado com sucesso.");
 			System.out.println("");
 		}

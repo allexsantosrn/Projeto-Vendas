@@ -30,6 +30,7 @@ public class Functions {
 	
 	ConsultaVenda action4 = new ConsultaVenda();	
 
+	//Invoca o método para cadastro do comprador.
 	public void cadastrarComprador() {
 
 		Comprador comprador = new Comprador();
@@ -50,7 +51,8 @@ public class Functions {
 
 		action.adicionarComprador(comprador);
 	}
-
+	
+	//Invoca o método para consulta do comprador.
 	public void consultarComprador() {
 
 		System.out.print("Informe o cpf do comprador: ");
@@ -58,11 +60,13 @@ public class Functions {
 		action.consultarComprador(cpf);
 	}
 
+	//Invoca o método para listagem dos compradores.
 	public void listarCompradores() {
 
 		action.listarCompradores();
 	}
-
+	
+	//Invoca o método para cadastro do vendedor.
 	public void cadastrarVendedor() {
 
 		Vendedor vendedor = new Vendedor();
@@ -83,19 +87,22 @@ public class Functions {
 
 		action2.adicionarVendedor(vendedor);
 	}
-
+	
+	//Invoca o método para consulta do vendedor.
 	public void consultarVendedor() {
 
 		System.out.print("Informe o cnpj do vendedor: ");
 		String cnpj = input.next();
 		action2.consultarVendedor(cnpj);
 	}
-
+	
+	//Invoca o método para listagem dos vendedores.
 	public void listarVendedores() {
 
 		action2.listarVendedores();
 	}
-
+	
+	//Invoca o método para cadastro do produto.
 	public void cadastrarProduto() {
 
 		Produto produto = new Produto();
@@ -143,24 +150,28 @@ public class Functions {
 		}
 
 	}
-
+	
+	//Invoca o método para consulta do produto.
 	public void consultarProduto() {
 
 		System.out.print("Informe o código do comprador: ");
 		int codigo = input.nextInt();
 		action3.consultarProduto(codigo);
 	}
-
+	
+	//Invoca o método para listagem de produtos.
 	public void listarProdutos() {
 
 		action3.listarProdutos();
 	}
 	
+	//Invoca o método para listagem das vendas.
 	public void listarVendas() {
 		
 		action4.listarVendas();
 	}
 
+	//Invoca o método para cadastro da venda.
 	public void cadastrarVenda() {
 
 		Venda venda = new Venda();
@@ -267,8 +278,7 @@ public class Functions {
 
 						PagamentoPIX pagamentoPIX = new PagamentoPIX();
 
-						if (pagamentoPIX.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra)) {
+						if (pagamentoPIX.checarFundos(action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamentoPIX.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
@@ -288,6 +298,12 @@ public class Functions {
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 							action4.adicionarVenda(venda);
 						}
+						
+						else {
+							
+							System.out.println("O comprador não possui fundos para realização da compra.");
+							System.out.println("");
+						}
 
 					}
 
@@ -300,8 +316,7 @@ public class Functions {
 
 						PagamentoBoleto pagamentoBoleto = new PagamentoBoleto();
 
-						if (pagamentoBoleto.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra)) {
+						if (pagamentoBoleto.checarFundos(action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamentoBoleto.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra, dataVencimento, dataPagamento);
@@ -328,6 +343,12 @@ public class Functions {
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 							action4.adicionarVenda(venda);
 						}
+						
+						else {
+							
+							System.out.println("O comprador não possui fundos para realização da compra.");
+							System.out.println("");
+						}
 
 					}
 
@@ -336,10 +357,7 @@ public class Functions {
 						System.out.println("Você escolheu a opção de pagamento: PAGAMENTO POR CARTÃO DE CRÉDITO.");
 
 						PagamentoCredito pagamentoCredito = new PagamentoCredito();
-
-						if (pagamentoCredito.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra)) {
-
+						
 							pagamentoCredito.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
 
@@ -356,8 +374,7 @@ public class Functions {
 							venda.setPagamento(pagamentoCredito);
 							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
-							action4.adicionarVenda(venda);
-						}
+							action4.adicionarVenda(venda);				
 
 					}
 
@@ -367,8 +384,7 @@ public class Functions {
 
 						PagamentoDebito pagamentoDebito = new PagamentoDebito();
 
-						if (pagamentoDebito.checarFundos(action2.retornaVendedorByCNPJ(cnpj),
-								action.retornaCompradorByCPF(cpf), valorCompra)) {
+						if (pagamentoDebito.checarFundos(action.retornaCompradorByCPF(cpf), valorCompra)) {
 
 							pagamentoDebito.realizarPagamento(action2.retornaVendedorByCNPJ(cnpj),
 									action.retornaCompradorByCPF(cpf), valorCompra);
@@ -387,6 +403,12 @@ public class Functions {
 							action.adicionarCompra(action.retornaCompradorByCPF(cpf), venda);
 							action2.adicionarVenda(action2.retornaVendedorByCNPJ(cnpj), venda);
 							action4.adicionarVenda(venda);
+						}
+						
+						else {
+							
+							System.out.println("O comprador não possui fundos para realização da compra.");
+							System.out.println("");
 						}
 					}
 
