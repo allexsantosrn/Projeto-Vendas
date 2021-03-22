@@ -48,7 +48,7 @@ No registro do pagamento é possível realizar os seguintes tipos de pagamento:
 
 - Para pagamento por PIX, o comprador necessita ter fundos para realização da compra, neste ponto, haverá transferência de recursos do comprador para o vendedor.
 - Para pagamento por Boleto, o comprador necessita ter fundos para realização da compra. Além disso, deverá ser informada também a data de vencimento do boleto, não podendo este boleto estar vencido para pagamento. Por fim, haverá transferência de recursos do comprador para a área de recursos a receber do vendedor, havendo também um desconto de 1 real pela geração do boleto.
-- Para pagamento por Cartão de Crédito, não haverá necessidade do comprador ter fundos para pagamento. Neste ponto, haverá incremento dos registros de valores a pagar do comprador para a área de valores a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
-- Para pagamento por Débito, o comprador necessita ter fundos para relização da compra, neste ponto, haverá transferência de recursos do comprador para a area de recursos a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
+- Para pagamento por Cartão de Crédito, não haverá necessidade do comprador ter fundos para pagamento. Neste ponto, haverá incremento dos registros de valores a pagar do comprador, e na área de valores a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
+- Para pagamento por Débito, o comprador necessita ter fundos para realização da compra, neste ponto, haverá transferência de recursos do comprador para a area de recursos a receber do vendedor, havendo também uma taxa de desconto 2% da operadora de cartão.
 
 OBS: Em todas as formas de pagamento, será considerada a data atual como data de pagamento.
